@@ -1,3 +1,4 @@
-import Database from './models/engine/database.js';
+import { storage } from "./config/database.js";
+import { Customer, Address, Order, OrderItem, Product, Category } from "./models/index.js";
 
-const db = new Database();
+
