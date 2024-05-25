@@ -29,7 +29,7 @@ class Database {
   }
 
   async sync () {
-    await this.db.sync({ force: true });
+    await this.db.sync();
   }
 
   async all(model=null) {

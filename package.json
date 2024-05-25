@@ -5,6 +5,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start:dev": "nodemon app.js",
+    "start": "node app",
     "test": "jest"
   },
   "keywords": [],

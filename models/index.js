@@ -11,6 +11,7 @@ export { default as OrderItem } from './orderItem.js';
 export { default as Product } from './product.js';
 export { default as Category } from './category.js';
 import { storage } from '../config/database.js';
+export { storage } from '../config/database.js';
 
 
 (async () => {
@@ -90,6 +91,7 @@ import { storage } from '../config/database.js';
   Product.belongsToMany(Category, { through: 'productCategory', timestamps: false});
   Category.belongsToMany(Product, { through: 'productCategory', timestamps: false});
 
-  storage.sync();
+  await storage.sync();
+  // await Product.sync({ alter: true });
 })();
 

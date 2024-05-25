@@ -35,10 +35,18 @@ OrderItem.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-
     price: {
       type: DataTypes.FLOAT,
       allowNull: false,
+    },
+    subTotal: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return (this.price * this.quantity);
+      },
+      set(value) {
+        throw new Error("Don't try to set subTotal");
+      }
     }
   },
   {

@@ -52,7 +52,7 @@ Address.init(
     },
     houseNumber: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: true,
     },
     floor: {
       type: DataTypes.INTEGER,

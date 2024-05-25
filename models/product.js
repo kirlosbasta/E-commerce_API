@@ -35,10 +35,28 @@ Product.init({
   price: {
     type: DataTypes.FLOAT,
     allowNull: false,
+    validate: {
+      isFloat: {
+        msg: 'Price must be a number',
+      },
+      min: {
+        args: [0],
+        msg: 'Price must be greater than 0',
+      },
+    },
   },
   stock: {
     type: DataTypes.INTEGER,
     defaultValue: 0,
+    validate: {
+      isInt: {
+        msg: 'Stock must be an integer',
+      },
+      min: {
+        args: [0],
+        msg: 'Stock must be greater than or equal to 0',
+      },
+    },
   },
   description: {
     type: DataTypes.TEXT,
