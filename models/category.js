@@ -10,6 +10,9 @@ export default class Category extends Model {
    */
   toJSON() {
     const json = super.toJSON();
+    if (json.productCategory) {
+      delete json.productCategory;
+    }
     json.model = "Category";
     return json;
   }

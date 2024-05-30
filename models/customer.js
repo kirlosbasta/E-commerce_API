@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import { storage } from '../config/database.js';
-import Address from './address.js';
+import { hashPassword } from '../utils/helper.js';
 
 
 class Customer extends Model {
@@ -12,6 +12,7 @@ class Customer extends Model {
   toJSON() {
     const json = super.toJSON();
     json.model = 'Customer';
+    delete json.password;
     return json;
   }
 
@@ -53,16 +54,9 @@ Customer.init(
     password: {
       type: DataTypes.STRING(60),
       allowNull: false,
-    },
-    phoneNumber: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      validate: {
-        is: {
-          args: /^\+[0-9]{6,14}$/,
-          msg: 'Phone number must be in the format +1234567890',
-        },
-      },
+      set(value) {
+        this.setDataValue('password', hashPassword(value));
+      }
     },
   },
   {

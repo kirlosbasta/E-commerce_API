@@ -1,9 +1,12 @@
+// This is a very important file that will be used to import all the models and create the relationships between them
 import Address from './address.js';
 import Customer from './customer.js';
 import Order from './order.js';
 import OrderItem from './orderItem.js';
 import Product from './product.js';
 import Category from './category.js';
+import Store from './session.js';
+export { default as Store } from './session.js';
 export { default as Address } from './address.js';
 export { default as Customer } from './customer.js';
 export { default as Order } from './order.js';
@@ -92,6 +95,7 @@ export { storage } from '../config/database.js';
   Category.belongsToMany(Product, { through: 'productCategory', timestamps: false});
 
   await storage.sync();
-  // await Product.sync({ alter: true });
+  // await Address.sync({ alter: true });
+  // await Customer.sync({ force: true });
 })();
 

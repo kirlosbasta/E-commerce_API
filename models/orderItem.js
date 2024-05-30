@@ -34,6 +34,15 @@ OrderItem.init(
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        isDecimal: {
+          msg: 'quantity must be a number',
+        },
+        min: {
+          args: [0],
+          msg: 'quantity must be greater than 0',
+        }
+      }
     },
     price: {
       type: DataTypes.FLOAT,

@@ -1,96 +1,97 @@
+import { Op } from 'sequelize';
 import { Address, Customer, Order, OrderItem, Category, Product, storage } from './models/index.js'
 
 
 (async () => {
+ 
+  await storage.sync();
+  const customer = await Customer.create({
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'JohnDoe@gmail.com',
+    password: 'password',
+    phoneNumber: '+2345678901234',
+  });
 
-  const product = await Product.findByPk('6f2873ec-c7d5-41ae-b51f-96cb7ee964cc');
-  console.log(product.price * 3);
-  // await storage.sync();
-  // const customer = await Customer.create({
-  //   firstName: 'John',
-  //   lastName: 'Doe',
-  //   email: 'JohnDoe@gmail.com',
-  //   password: 'password',
-  //   phoneNumber: '+2345678901234',
-  // });
+  await customer.createAddress({
+    street: '123 Main Street',
+    city: 'Lagos',
+    state: 'Lagos',
+    country: 'Nigeria',
+    zipCode: 100001,
+    houseNumber: '123',
+    floor: 1,
+    description: 'Home',
+    phoneNumber: '+2345678901234',
+  });
+  await customer.createAddress({
+    street: '456 Broad Street',
+    city: 'Lagos',
+    state: 'Lagos',
+    country: 'Nigeria',
+    zipCode: 100001,
+    houseNumber: '456',
+    floor: 2,
+    description: 'Office',
+    phoneNumber: '+124567875934',
+  });
 
-  // await customer.createAddress({
-  //   street: '123 Main Street',
-  //   city: 'Lagos',
-  //   state: 'Lagos',
-  //   country: 'Nigeria',
-  //   zipCode: 100001,
-  //   houseNumber: '123',
-  //   floor: 1,
-  //   description: 'Home',
-  // });
-  // await customer.createAddress({
-  //   street: '456 Broad Street',
-  //   city: 'Lagos',
-  //   state: 'Lagos',
-  //   country: 'Nigeria',
-  //   zipCode: 100001,
-  //   houseNumber: '456',
-  //   floor: 2,
-  //   description: 'Office',
-  // });
-
-  // const iphones = await Product.bulkCreate([
-  //   {
-  //     name: 'Iphone 6s',
-  //     description: 'A phone from Apple',
-  //     price: 1000,
-  //     stock: 10,
-  //   },
-  //   {
-  //     name: 'Iphone 7s',
-  //     description: 'A phone from Apple',
-  //     price: 2000,
-  //     stock: 20,
-  //   },
-  //   {
-  //     name: 'Iphone 8s',
-  //     description: 'A phone from Apple',
-  //     price: 3000,
-  //     stock: 30,
-  //   },
-  //   {
-  //     name: 'Iphone 9s',
-  //     description: 'A phone from Apple',
-  //     price: 4000,
-  //     stock: 40,
-  //   },
-  // ]);
-  // const addresses = await customer.getAddresses();
-  // const order = await customer.createOrder({
-  //   status: 'pending',
-  //   addressId: addresses[0].id,
-  // });
-  // const orderItems = await OrderItem.bulkCreate([
-  //   {
-  //     orderId: order.id,
-  //     productId: iphones[0].id,
-  //     quantity: 2,
-  //     price: iphones[0].price,
-  //   },
-  //   {
-  //     orderId: order.id,
-  //     productId: iphones[1].id,
-  //     quantity: 3,
-  //     price: iphones[1].price,
-  //   },
-  // ]);
-  // const categories = await Category.bulkCreate([
-  //   {
-  //     name: 'Electronics',
-  //   },
-  //   {
-  //     name: 'Phones',
-  //   },
-  // ]);
-  // await iphones[0].addCategories([categories[0], categories[1]]);
-  // await iphones[1].addCategories([categories[0], categories[1]]);
-  // console.log(await order.toJSON());
+  const iphones = await Product.bulkCreate([
+    {
+      name: 'Iphone 6s',
+      description: 'A phone from Apple',
+      price: 1000,
+      stock: 10,
+    },
+    {
+      name: 'Iphone 7s',
+      description: 'A phone from Apple',
+      price: 2000,
+      stock: 20,
+    },
+    {
+      name: 'Iphone 8s',
+      description: 'A phone from Apple',
+      price: 3000,
+      stock: 30,
+    },
+    {
+      name: 'Iphone 9s',
+      description: 'A phone from Apple',
+      price: 4000,
+      stock: 40,
+    },
+  ]);
+  const addresses = await customer.getAddresses();
+  const order = await customer.createOrder({
+    status: 'pending',
+    addressId: addresses[0].id,
+  });
+  const orderItems = await OrderItem.bulkCreate([
+    {
+      orderId: order.id,
+      productId: iphones[0].id,
+      quantity: 2,
+      price: iphones[0].price,
+    },
+    {
+      orderId: order.id,
+      productId: iphones[1].id,
+      quantity: 3,
+      price: iphones[1].price,
+    },
+  ]);
+  const categories = await Category.bulkCreate([
+    {
+      name: 'Electronics',
+    },
+    {
+      name: 'Phones',
+    },
+  ]);
+  await iphones[0].addCategories([categories[0], categories[1]]);
+  await iphones[1].addCategories([categories[0], categories[1]]);
+  console.log(await order.toJSON());
 }) ();
 
 

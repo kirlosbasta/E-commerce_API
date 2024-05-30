@@ -62,6 +62,26 @@ Address.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    phoneNumber: {
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      validate: {
+        is: {
+          args: /^\+[0-9]{6,14}$/,
+          msg: 'Phone number must be in the format +1234567890',
+        },
+      },
+    },
+    additionalPhoneNumber: {
+      type: DataTypes.STRING(20),
+      allowNull: true,
+      validate: {
+        is: {
+          args: /^\+[0-9]{6,14}$/,
+          msg: 'Phone number must be in the format +1234567890',
+        },
+      },
+    },
   },
   {
     sequelize: storage.db,

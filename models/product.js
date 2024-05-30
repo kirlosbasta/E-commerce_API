@@ -9,6 +9,10 @@ export default class Product extends Model {
    */
   toJSON() {
     const json = super.toJSON();
+    // Remove sequelize automatic insertion of both primary keys of product and category
+    if (json.productCategory) {
+      delete json.productCategory;
+    }
     json.model = 'Product';
     return json;
   }
