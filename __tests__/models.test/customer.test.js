@@ -1,6 +1,7 @@
-import { Address, Customer } from "../../models/index.js";
+import { Address, Customer, storage } from "../../models/index.js";
 
 let customer;
+
 
 describe("Customer", () => {
   beforeAll(async () => {
@@ -33,9 +34,10 @@ describe("Customer", () => {
   });
   afterAll(async () => {
     await Customer.destroy({ where: {email: 'JohnDoe@gmail.com'} });
+    await storage.db.close();
   });
 
-  test('should have a customer', async () => {
+  it('should have a customer', async () => {
     expect(customer).toBeInstanceOf(Customer);
     expect(customer.toJSON()).toHaveProperty('id', customer.id);
     expect(customer.toJSON()).toHaveProperty('createdAt');
