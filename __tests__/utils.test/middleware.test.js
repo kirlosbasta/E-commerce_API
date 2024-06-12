@@ -1,12 +1,11 @@
 const isAuthenticated = require('../../utils/middelware.js');
 
-
 describe('Test Middleware', () => {
   const req = {};
   const res = {
     status: jest.fn(() => res),
     json: jest.fn(),
-    send: jest.fn(),
+    send: jest.fn()
   };
   const next = jest.fn();
 

@@ -1,3 +1,4 @@
+// Description: Main entry point for the application. This file creates the express app and starts the server.
 const createApp = require('./config/server.js');
 
 const app = createApp();

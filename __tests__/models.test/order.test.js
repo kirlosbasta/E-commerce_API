@@ -1,6 +1,5 @@
-const { json } = require("sequelize");
-const { Order, Customer, OrderItem, Product, storage } = require( "../../models/index.js");
-
+const { json } = require('sequelize');
+const { Order, Customer, OrderItem, Product, storage } = require('../../models/index.js');
 
 let order, customer, address1, item1, item2, product1, product2;
 
@@ -10,54 +9,54 @@ describe('Test Order', () => {
 
     customer = await Customer.create(
       {
-        firstName: "John",
-        lastName: "Doe",
-        email: "JohnDoe@gmail.com",
-        password: "password",
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'JohnDoe@gmail.com',
+        password: 'password'
       });
     address1 = await customer.createAddress({
-      street: "123 Main St",
-      city: "Springfield",
-      state: "IL",
+      street: '123 Main St',
+      city: 'Springfield',
+      state: 'IL',
       zipCode: 62701,
       country: 'USA',
       houseNumber: '32',
-      phoneNumber: "+1234567890",
-      additionalPhoneNumber: "+2839483948",
+      phoneNumber: '+1234567890',
+      additionalPhoneNumber: '+2839483948',
       floor: 5,
-      description: "This is a description",
+      description: 'This is a description'
     });
     order = await Order.create({
       status: 'pending',
       customerId: customer.id,
-      addressId: address1.id,
+      addressId: address1.id
     });
 
     product1 = await Product.create({
       name: 'iphone 4',
       price: 50,
       stock: 10,
-      description: 'Older phone',
+      description: 'Older phone'
     });
 
     product2 = await Product.create({
       name: 'iphone 5',
       price: 100,
       stock: 20,
-      description: 'Old phone',
+      description: 'Old phone'
     });
     item1 = await OrderItem.create({
       quantity: 2,
       price: product1.price,
       orderId: order.id,
-      productId: product1.id,
+      productId: product1.id
     });
 
     item2 = await OrderItem.create({
       quantity: 1,
       price: product2.price,
       orderId: order.id,
-      productId: product2.id,
+      productId: product2.id
     });
   });
 
@@ -66,7 +65,6 @@ describe('Test Order', () => {
   });
 
   it('should create an order', async () => {
-    
     const json = await order.toJSON();
     expect(order).toBeInstanceOf(Order);
     expect(json).toHaveProperty('id', order.id);
@@ -81,7 +79,7 @@ describe('Test Order', () => {
   it('should not create an order without a status', async () => {
     try {
       await Order.create({
-        description: 'All electronics',
+        description: 'All electronics'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -91,9 +89,8 @@ describe('Test Order', () => {
   it('should have status from one of (pending, completed, canceled)', async () => {
     try {
       await Order.create({
-        status: 'undefined',
+        status: 'undefined'
       });
-      
     } catch (error) {
       expect(error).toBeTruthy();
     }

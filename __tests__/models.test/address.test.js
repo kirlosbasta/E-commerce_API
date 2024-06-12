@@ -1,4 +1,4 @@
-const { Address, Customer, storage } = require( "../../models/index.js");
+const { Address, Customer, storage } = require('../../models/index.js');
 
 let customer, address1, address2;
 
@@ -7,31 +7,31 @@ describe('Test Address', () => {
     await storage.sync();
     customer = await Customer.create(
       {
-        firstName: "John",
-        lastName: "Doe",
-        email: "JohnDoe@gmail.com",
-        password: "password",
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'JohnDoe@gmail.com',
+        password: 'password'
       });
-      address1 = await customer.createAddress({
-        street: "123 Main St",
-        city: "Springfield",
-        state: "IL",
-        zipCode: 62701,
-        country: 'USA',
-        houseNumber: '32',
-        phoneNumber: "+1234567890",
-        additionalPhoneNumber: "+2839483948",
-        floor: 5,
-        description: "This is a description",
-      });
-      address2 = await customer.createAddress({
-        street: "14 waffle St",
-        city: "yorkshire",
-        state: "NW",
-        zipCode: 346243,
-        country: 'RU',
-        phoneNumber: "+1234567890",
-      });
+    address1 = await customer.createAddress({
+      street: '123 Main St',
+      city: 'Springfield',
+      state: 'IL',
+      zipCode: 62701,
+      country: 'USA',
+      houseNumber: '32',
+      phoneNumber: '+1234567890',
+      additionalPhoneNumber: '+2839483948',
+      floor: 5,
+      description: 'This is a description'
+    });
+    address2 = await customer.createAddress({
+      street: '14 waffle St',
+      city: 'yorkshire',
+      state: 'NW',
+      zipCode: 346243,
+      country: 'RU',
+      phoneNumber: '+1234567890'
+    });
   });
   afterAll(async () => {
     await storage.db.drop();
@@ -77,13 +77,13 @@ describe('Test Address', () => {
   it('should fail with Phone number must be in the format +1234567890', async () => {
     try {
       const wrongNumber = await customer.createAddress({
-        street: "14 waffle St",
-        city: "yorkshire",
-        state: "NW",
+        street: '14 waffle St',
+        city: 'yorkshire',
+        state: 'NW',
         zipCode: 346243,
         country: 'RU',
-        phoneNumber: "12df34567890",
-      })
+        phoneNumber: '12df34567890'
+      });
     } catch (e) {
       expect(e).toBeInstanceOf(Error);
       expect(e.message).toBe('Validation error: Phone number must be in the format +1234567890');
@@ -93,14 +93,14 @@ describe('Test Address', () => {
   it('should fail for additional phone number with Phone number must be in the format +1234567890', async () => {
     try {
       const wrongNumber = await customer.createAddress({
-        street: "14 waffle St",
-        city: "yorkshire",
-        state: "NW",
+        street: '14 waffle St',
+        city: 'yorkshire',
+        state: 'NW',
         zipCode: 346243,
         country: 'RU',
-        phoneNumber: "+112358945",
-        additionalPhoneNumber: "jfvdfdfe"
-      })
+        phoneNumber: '+112358945',
+        additionalPhoneNumber: 'jfvdfdfe'
+      });
     } catch (e) {
       expect(e).toBeInstanceOf(Error);
       expect(e.message).toBe('Validation error: Phone number must be in the format +1234567890');

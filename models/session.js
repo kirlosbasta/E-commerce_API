@@ -10,6 +10,6 @@ const Store = new SequelizeStore({
 // sync the database to create the session table
 (async () => {
   Store.sync();
-}) ();
+})();
 
 module.exports = Store;

@@ -1,4 +1,4 @@
-const { Order, Customer, OrderItem, Product, storage } = require( "../../models/index.js");
+const { Order, Customer, OrderItem, Product, storage } = require('../../models/index.js');
 
 let order, customer, address1, item1, item2, product1, product2, oldQuantity;
 
@@ -8,34 +8,34 @@ describe('Test OrderItems', () => {
 
     customer = await Customer.create(
       {
-        firstName: "John",
-        lastName: "Doe",
-        email: "JohnDoe@gmail.com",
-        password: "password",
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'JohnDoe@gmail.com',
+        password: 'password'
       });
     address1 = await customer.createAddress({
-      street: "123 Main St",
-      city: "Springfield",
-      state: "IL",
+      street: '123 Main St',
+      city: 'Springfield',
+      state: 'IL',
       zipCode: 62701,
       country: 'USA',
       houseNumber: '32',
-      phoneNumber: "+1234567890",
-      additionalPhoneNumber: "+2839483948",
+      phoneNumber: '+1234567890',
+      additionalPhoneNumber: '+2839483948',
       floor: 5,
-      description: "This is a description",
+      description: 'This is a description'
     });
     order = await Order.create({
       status: 'pending',
       customerId: customer.id,
-      addressId: address1.id,
+      addressId: address1.id
     });
 
     product1 = await Product.create({
       name: 'iphone 4',
       price: 50,
       stock: 10,
-      description: 'Older phone',
+      description: 'Older phone'
     });
 
     oldQuantity = product1.stock;
@@ -44,20 +44,20 @@ describe('Test OrderItems', () => {
       name: 'iphone 5',
       price: 100,
       stock: 20,
-      description: 'Old phone',
+      description: 'Old phone'
     });
     item1 = await OrderItem.create({
       quantity: 2,
       price: product1.price,
       orderId: order.id,
-      productId: product1.id,
+      productId: product1.id
     });
 
     item2 = await OrderItem.create({
       quantity: 1,
       price: product2.price,
       orderId: order.id,
-      productId: product2.id,
+      productId: product2.id
     });
   });
 
@@ -82,7 +82,7 @@ describe('Test OrderItems', () => {
       await OrderItem.create({
         price: 50,
         orderId: order.id,
-        productId: product1.id,
+        productId: product1.id
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -94,7 +94,7 @@ describe('Test OrderItems', () => {
       await OrderItem.create({
         quantity: 2,
         orderId: order.id,
-        productId: product1.id,
+        productId: product1.id
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -106,7 +106,7 @@ describe('Test OrderItems', () => {
       await OrderItem.create({
         quantity: 2,
         price: 50,
-        productId: product1.id,
+        productId: product1.id
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -118,7 +118,7 @@ describe('Test OrderItems', () => {
       await OrderItem.create({
         quantity: 2,
         price: 50,
-        orderId: order.id,
+        orderId: order.id
       });
     } catch (error) {
       expect(error).toBeTruthy();

@@ -7,9 +7,9 @@ class Address extends Model {
    *
    * @returns (json) Json format of the file
    */
-  toJSON() {
+  toJSON () {
     const json = super.toJSON();
-    json.model = "Address";
+    json.model = 'Address';
     return json;
   }
 
@@ -17,7 +17,7 @@ class Address extends Model {
    * Stringify json
    * @returns (string) Json string of the object
    */
-  toString() {
+  toString () {
     return JSON.stringify(this.toJSON(), null, 2);
   }
 }
@@ -27,39 +27,39 @@ Address.init(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
+      primaryKey: true
     },
     country: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: false
     },
     state: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: false
     },
     city: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: false
     },
     zipCode: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     },
     street: {
       type: DataTypes.STRING(60),
-      allowNull: false,
+      allowNull: false
     },
     houseNumber: {
       type: DataTypes.STRING(60),
-      allowNull: true,
+      allowNull: true
     },
     floor: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: true
     },
     description: {
       type: DataTypes.TEXT,
-      allowNull: true,
+      allowNull: true
     },
     phoneNumber: {
       type: DataTypes.STRING(20),
@@ -67,9 +67,9 @@ Address.init(
       validate: {
         is: {
           args: /^\+[0-9]{6,14}$/,
-          msg: 'Phone number must be in the format +1234567890',
-        },
-      },
+          msg: 'Phone number must be in the format +1234567890'
+        }
+      }
     },
     additionalPhoneNumber: {
       type: DataTypes.STRING(20),
@@ -77,14 +77,14 @@ Address.init(
       validate: {
         is: {
           args: /^\+[0-9]{6,14}$/,
-          msg: 'Phone number must be in the format +1234567890',
-        },
-      },
-    },
+          msg: 'Phone number must be in the format +1234567890'
+        }
+      }
+    }
   },
   {
     sequelize: storage.db,
-    modelName: 'address',
+    modelName: 'address'
   });
 
 module.exports = Address;

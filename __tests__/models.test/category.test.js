@@ -1,4 +1,4 @@
-const { Category, storage } = require( "../../models/index.js");
+const { Category, storage } = require('../../models/index.js');
 
 let category;
 
@@ -13,7 +13,7 @@ describe('Test Category', () => {
 
   it('should create a category', async () => {
     category = await Category.create({
-      name: 'Electronics',
+      name: 'Electronics'
     });
     const json = category.toJSON();
     expect(category).toBeInstanceOf(Category);
@@ -27,7 +27,7 @@ describe('Test Category', () => {
   it('should not create a category without a name', async () => {
     try {
       await Category.create({
-        description: 'All electronics',
+        description: 'All electronics'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -37,9 +37,8 @@ describe('Test Category', () => {
   it('should have a unique name', async () => {
     try {
       await Category.create({
-        name: 'Electronics',
+        name: 'Electronics'
       });
-      
     } catch (error) {
       expect(error).toBeTruthy();
     }
@@ -56,19 +55,19 @@ describe('Test Category', () => {
   it('should have hasProduct method', async () => {
     expect(category.hasProduct).toBeInstanceOf(Function);
   });
-  
+
   it('should have hasProducts method', async () => {
     expect(category.hasProducts).toBeInstanceOf(Function);
   });
-  
+
   it('should have setProducts method', async () => {
     expect(category.setProducts).toBeInstanceOf(Function);
   });
-  
+
   it('should have addProducts method', async () => {
     expect(category.addProducts).toBeInstanceOf(Function);
   });
-  
+
   it('should have addProduct method', async () => {
     expect(category.addProduct).toBeInstanceOf(Function);
   });
@@ -84,5 +83,4 @@ describe('Test Category', () => {
   it('should have createProduct method', async () => {
     expect(category.createProduct).toBeInstanceOf(Function);
   });
-
-}); 
+});

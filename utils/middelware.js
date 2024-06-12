@@ -6,7 +6,7 @@
  * @param {Function} next - The next middleware function.
  * @returns {void}
  */
-async function isAuthenticated(req, res, next) {
+async function isAuthenticated (req, res, next) {
   const { user } = req;
   if (!user) {
     return res.status(401).json({ Error: 'Unauthenticated' });

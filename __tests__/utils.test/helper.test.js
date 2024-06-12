@@ -1,7 +1,6 @@
 const { hashPassword, comparePassword } = require('../../utils/helper.js');
 const bcrypt = require('bcrypt');
 
-
 describe('Test Helpers', () => {
   it('should hash password', () => {
     const password = 'password';

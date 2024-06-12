@@ -11,17 +11,17 @@ describe('Test Database', () => {
       name: 'iphone 4',
       price: 50,
       stock: 10,
-      description: 'Older phone',
+      description: 'Older phone'
     });
     product2 = await Product.create({
       name: 'iphone 5',
       price: 100,
       stock: 20,
-      description: 'Old phone',
+      description: 'Old phone'
     });
 
     category = await Category.create({
-      name: 'Phones',
+      name: 'Phones'
     });
   });
 
@@ -44,7 +44,7 @@ describe('Test Database', () => {
   it('should have count method', () => {
     expect(storage.count).toBeInstanceOf(Function);
   });
-  
+
   it('should have db property', () => {
     expect(storage.db).toBeDefined();
     expect(storage.db).toBeInstanceOf(Sequelize);

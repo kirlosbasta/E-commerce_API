@@ -1,9 +1,8 @@
 const { Router } = require('express');
-const { Customer } = require("../models/index.js");
-const { validataCustomer } = require("../utils/routeValidation.js");
+const { Customer } = require('../models/index.js');
+const { validataCustomer } = require('../utils/routeValidation.js');
 
 const route = Router();
-
 
 // GET /api/v1/customers - returns all customers or a single customer if an id is provided
 route.get('/customers(/:customerId)?', async (req, res) => {
@@ -25,15 +24,15 @@ route.get('/customers(/:customerId)?', async (req, res) => {
 route.post('/customers', async (req, res) => {
   const { body } = req;
   if (!body.firstName) {
-    return res.status(400).json({Error: "Missing firstName"});
+    return res.status(400).json({ Error: 'Missing firstName' });
   } else if (!body.lastName) {
-    return res.status(400).json({Error: "Missing lastName"});
+    return res.status(400).json({ Error: 'Missing lastName' });
   } else if (!body.email) {
-    return res.status(400).json({Error: "Missing email"});
+    return res.status(400).json({ Error: 'Missing email' });
   } else if (!body.password) {
-    return res.status(400).json({Error: "Missing password"});
-  } 
- 
+    return res.status(400).json({ Error: 'Missing password' });
+  }
+
   try {
     delete body.id;
     delete body.createdAt;
@@ -41,7 +40,7 @@ route.post('/customers', async (req, res) => {
     const customer = await Customer.create(body);
     return res.status(201).json(customer.toJSON());
   } catch (e) {
-    return res.status(400).json({Error: e.errors[0].message});
+    return res.status(400).json({ Error: e.errors[0].message });
   }
 });
 
@@ -56,13 +55,12 @@ route.delete('/customers/:customerId', validataCustomer, async (req, res) => {
 route.put('/customers/:customerId', validataCustomer, async (req, res) => {
   const { customer } = req;
   try {
-    const {id, createdAt, updatedAt, email, ...rest} = req.body;
+    const { id, createdAt, updatedAt, email, ...rest } = req.body;
     await customer.update(rest);
     res.json(customer.toJSON());
   } catch (e) {
-    res.status(400).json({Error: e.errors[0].message});
+    res.status(400).json({ Error: e.errors[0].message });
   }
 });
-
 
 module.exports = route;

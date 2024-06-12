@@ -1,7 +1,6 @@
-const { Router } = require("express");
-const { Category } = require("../models/index.js");
-const { validateCategory } = require("../utils/routeValidation.js");
-
+const { Router } = require('express');
+const { Category } = require('../models/index.js');
+const { validateCategory } = require('../utils/routeValidation.js');
 
 const route = Router();
 
@@ -14,8 +13,7 @@ route.get('/categories(/:categoryId)?', async (req, res) => {
     } else {
       return res.json(category.toJSON());
     }
-  }
-  else {
+  } else {
     const categories = (await Category.findAll()).map(category => category.toJSON());
     return res.json(categories);
   }

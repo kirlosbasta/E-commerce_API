@@ -1,8 +1,6 @@
-const { Product, storage } = require( "../../models/index.js");
-
+const { Product, storage } = require('../../models/index.js');
 
 let product1;
-
 
 describe('Test Product', () => {
   beforeAll(async () => {
@@ -12,7 +10,7 @@ describe('Test Product', () => {
       name: 'iphone 4',
       price: 50,
       stock: 10,
-      description: 'Older phone',
+      description: 'Older phone'
     });
   });
 
@@ -38,7 +36,7 @@ describe('Test Product', () => {
       await Product.create({
         price: 50,
         stock: 10,
-        description: 'Older phone',
+        description: 'Older phone'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -50,7 +48,7 @@ describe('Test Product', () => {
       await Product.create({
         name: 'iphone 4',
         stock: 10,
-        description: 'Older phone',
+        description: 'Older phone'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -62,7 +60,7 @@ describe('Test Product', () => {
       const tmp = await Product.create({
         name: 'iphone 4',
         price: 50,
-        description: 'Older phone',
+        description: 'Older phone'
       });
 
       expect(tmp).toBeTruthy();
@@ -78,7 +76,7 @@ describe('Test Product', () => {
         name: 'iphone 4',
         price: -50,
         stock: 10,
-        description: 'Older phone',
+        description: 'Older phone'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -91,7 +89,7 @@ describe('Test Product', () => {
         name: 'iphone 4',
         price: 50,
         stock: -10,
-        description: 'Older phone',
+        description: 'Older phone'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -104,7 +102,7 @@ describe('Test Product', () => {
         name: 'iphone 4',
         price: 50,
         stock: 10.5,
-        description: 'Older phone',
+        description: 'Older phone'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -117,7 +115,7 @@ describe('Test Product', () => {
         name: 'iphone 4',
         price: '50',
         stock: 10,
-        description: 'Older phone',
+        description: 'Older phone'
       });
     } catch (error) {
       expect(error).toBeTruthy();
@@ -135,19 +133,19 @@ describe('Test Product', () => {
   it('should have hasCategories method', async () => {
     expect(product1.hasCategories).toBeInstanceOf(Function);
   });
-  
+
   it('should have hasCategories method', async () => {
     expect(product1.hasCategories).toBeInstanceOf(Function);
   });
-  
+
   it('should have setCategories method', async () => {
     expect(product1.setCategories).toBeInstanceOf(Function);
   });
-  
+
   it('should have addCategories method', async () => {
     expect(product1.addCategories).toBeInstanceOf(Function);
   });
-  
+
   it('should have addCategories method', async () => {
     expect(product1.addCategories).toBeInstanceOf(Function);
   });

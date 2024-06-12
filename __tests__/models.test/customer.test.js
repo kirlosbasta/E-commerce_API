@@ -1,19 +1,17 @@
-const { Address, Customer, storage } = require( "../../models/index.js");
+const { Address, Customer, storage } = require('../../models/index.js');
 
 let customer;
 
-
-describe("Test Customer", () => {
+describe('Test Customer', () => {
   beforeAll(async () => {
     await storage.sync();
     customer = await Customer.create(
       {
-        firstName: "John",
-        lastName: "Doe",
-        email: "JohnDoe@gmail.com",
-        password: "password",
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'JohnDoe@gmail.com',
+        password: 'password'
       });
-      
   });
   afterAll(async () => {
     await storage.db.drop();
@@ -36,10 +34,10 @@ describe("Test Customer", () => {
   it('should throw an eror if email is not valid', async () => {
     try {
       await Customer.create({
-        firstName: "John",
-        lastName: "Doe",
-        email: "JohnDoe",
-        password: "password",
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'JohnDoe',
+        password: 'password'
       });
     } catch (error) {
       expect(error).toBeInstanceOf(Error);

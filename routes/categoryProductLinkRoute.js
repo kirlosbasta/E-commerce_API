@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { validateCategory, validateProduct } = require("../utils/routeValidation.js");
+const { validateCategory, validateProduct } = require('../utils/routeValidation.js');
 
 const route = Router();
 
@@ -31,7 +31,7 @@ route.post('/products/:productId/categories/:categoryId', validateProduct, valid
 route.delete('/products/:productId/categories/:categoryId', validateProduct, validateCategory, async (req, res) => {
   const { product, category } = req;
   if (!await product.hasCategory(category)) {
-    return res.status(404).json({Error: 'Category not linked to product'});
+    return res.status(404).json({ Error: 'Category not linked to product' });
   }
   await product.removeCategory(category);
   return res.status(200).json({});

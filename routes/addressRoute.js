@@ -1,12 +1,10 @@
 const { Router } = require('express');
-const { Address, Customer } = require('../models/index.js');
+const { Address } = require('../models/index.js');
 const { validateAddress } = require('../utils/routeValidation.js');
-const isAuthenticated = require("../utils/middelware.js");
-
+const isAuthenticated = require('../utils/middelware.js');
 
 const route = Router();
 route.use(isAuthenticated);
-
 
 // GET /api/v1/addresses route - returns all addresses or a single address if an id is provided
 route.get('/addresses(/:id)?', async (req, res) => {
@@ -18,8 +16,7 @@ route.get('/addresses(/:id)?', async (req, res) => {
     } else {
       return res.json(address.toJSON());
     }
-  }
-  else {
+  } else {
     const addresses = (await customer.getAddresses()).map(address => address.toJSON());
     return res.json(addresses);
   }
@@ -27,7 +24,7 @@ route.get('/addresses(/:id)?', async (req, res) => {
 
 // DELETE /api/v1/addresses/:id route - deletes an address
 route.delete('/addresses/:id', validateAddress, async (req, res) => {
- const { address } = req;
+  const { address } = req;
   await address.destroy();
   res.status(200).send({ Success: 'Address deleted' });
 });

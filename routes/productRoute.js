@@ -1,9 +1,8 @@
 const { Router } = require('express');
-const { Product } = require("../models/index.js");
-const { validateProduct } = require("../utils/routeValidation.js");
+const { Product } = require('../models/index.js');
+const { validateProduct } = require('../utils/routeValidation.js');
 
 const route = Router();
-
 
 // GET /api/v1/products - returns all products or a single product if an id is provided
 route.get('/products(/:productId)?', async (req, res) => {
@@ -14,8 +13,7 @@ route.get('/products(/:productId)?', async (req, res) => {
     } else {
       return res.json(product.toJSON());
     }
-  }
-  else {
+  } else {
     const products = (await Product.findAll()).map(product => product.toJSON());
     return res.json(products);
   }
