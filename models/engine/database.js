@@ -15,7 +15,6 @@ class Database {
       logging: false,
     });
     if (process.env.ECOMM_ENV === 'test') {
-      // console.log('Dropping database');
       this.db.drop();
     }
   }

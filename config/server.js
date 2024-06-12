@@ -22,7 +22,7 @@ function createApp() {
   
   app.use(cors());
   app.use(session({
-    secret: 'AQSGaHYejNtjnUtxbS4pRDrUKPVq9w9k',
+    secret: process.env.ECOMM_SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { 
