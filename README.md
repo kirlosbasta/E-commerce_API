@@ -4,10 +4,10 @@
 The Marketer API is the ultimate API solution for small businesses looking to take their business to the next level. With Marketer, you can seamlessly integrate powerful ecommerce tools into your existing systems, helping you attract new customers, boost sales, and grow your brand.
 
 ## Features
-- **Customer manegment**: Create, update, and delete customers.
-- **Authentication**: Easy to use authentication with passportjs.
-- **Search**: Search for products by name, price or category. 
-- **Security**: Secure your customers credentials.
+- <b>Customer manegment<b>: Create, update, and delete customers.
+- <b>Authentication<b>: Easy to use authentication with passportjs.
+- <b>Search<b>: Search for products by name, price or category. 
+- <b>Security<b>: Secure your customers credentials.
 
 ## Getting Started
 To get started with the Marketer API, you need first to have node and mysql installed on your machine. You can download node >= 18 from [here](https://nodejs.org/en/download/) and mysql from [here](https://dev.mysql.com/downloads/mysql/).
