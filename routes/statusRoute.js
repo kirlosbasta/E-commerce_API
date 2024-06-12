@@ -1,5 +1,6 @@
-import { Router } from "express";
-import { isAuthenticated } from "../utils/middelware.js";
+const { Router } = require('express');
+const isAuthenticated = require("../utils/middelware.js");
+
 
 
 const route = Router();
@@ -9,4 +10,4 @@ route.get('/status', isAuthenticated, (req, res) => {
   res.status(200).json({status: 'ok'});
 });
 
-export default route;
+module.exports = route;

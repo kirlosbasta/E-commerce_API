@@ -1,8 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
-import { storage } from '../config/database.js';
+const { Model, DataTypes } = require('sequelize');
+const storage = require('../config/database.js');
 
 
-export default class Order extends Model {
+class Order extends Model {
   /**
    * convert Order Model to json format
    *
@@ -12,7 +12,7 @@ export default class Order extends Model {
     const json = super.toJSON();
     json.model = 'Order';
     json.totalPrice = await this.getTotalPrice();
-    json.totalquantity = await this.getTotalQuantity();
+    json.totalQuantity = await this.getTotalQuantity();
     return json;
   }
 
@@ -77,3 +77,5 @@ Order.init(
     modelName: 'order',
   }
 );
+
+module.exports = Order;

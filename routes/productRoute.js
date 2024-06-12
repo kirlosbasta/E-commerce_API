@@ -1,8 +1,8 @@
-import express from "express";
-import { Product } from "../models/index.js";
-import { validateProduct } from "../utils/routeValidation.js";
+const { Router } = require('express');
+const { Product } = require("../models/index.js");
+const { validateProduct } = require("../utils/routeValidation.js");
 
-const route = express.Router();
+const route = Router();
 
 
 // GET /api/v1/products - returns all products or a single product if an id is provided
@@ -57,4 +57,4 @@ route.delete('/products/:productId', validateProduct, async (req, res) => {
   return res.status(200).json({ Success: 'Product deleted' });
 });
 
-export default route;
+module.exports = route;

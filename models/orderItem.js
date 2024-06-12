@@ -1,8 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
-import { storage } from '../config/database.js';
+const { Model, DataTypes } = require('sequelize');
+const storage = require('../config/database.js');
 
 
-export default class OrderItem extends Model {
+class OrderItem extends Model {
   /**
    * convert OrderItem Model to json format
    *
@@ -63,3 +63,5 @@ OrderItem.init(
     modelName: 'orderItem',
   }
 );
+
+module.exports = OrderItem;

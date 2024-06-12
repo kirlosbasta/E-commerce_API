@@ -1,11 +1,12 @@
-import bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
+
 
 /**
  * Hash password
  * @param {String} password 
  * @returns {String} hashed password
  */
-export const hashPassword = (password) => {
+const hashPassword = (password) => {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 }
 
@@ -15,6 +16,11 @@ export const hashPassword = (password) => {
  * @param {String} hash 
  * @returns {boolean} true if password matches hash, false otherwise 
  */
-export const comparePassword = (password, hash) => {
+const comparePassword = (password, hash) => {
   return bcrypt.compareSync(password, hash);
 }
+
+module.exports = {
+  hashPassword,
+  comparePassword
+};

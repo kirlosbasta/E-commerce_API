@@ -1,15 +1,16 @@
-import express from 'express';
-import { Address, Customer } from '../models/index.js';
-import { validataCustomer, validateAddress } from '../utils/routeValidation.js';
+const { Router } = require('express');
+const { Address, Customer } = require('../models/index.js');
+const { validateAddress } = require('../utils/routeValidation.js');
+const isAuthenticated = require("../utils/middelware.js");
 
 
-const route = express.Router();
+const route = Router();
+route.use(isAuthenticated);
 
 
-
-// GET /api/v1/customers/<id>/addresses route - returns all addresses or a single address if an id is provided
-route.get('/customers/:customerId/addresses(/:id)?', validataCustomer,  async (req, res) => {
-  const { customer } = req;
+// GET /api/v1/addresses route - returns all addresses or a single address if an id is provided
+route.get('/addresses(/:id)?', async (req, res) => {
+  const { user: customer } = req;
   if (req.params.id) {
     const address = await Address.findByPk(req.params.id);
     if (!address) {
@@ -24,17 +25,16 @@ route.get('/customers/:customerId/addresses(/:id)?', validataCustomer,  async (r
   }
 });
 
-// DELETE /api/v1/customers/:customerId/addresses/:id route - deletes an address
-route.delete('/customers/:customerId/addresses/:id', validataCustomer, validateAddress, async (req, res) => {
+// DELETE /api/v1/addresses/:id route - deletes an address
+route.delete('/addresses/:id', validateAddress, async (req, res) => {
  const { address } = req;
   await address.destroy();
   res.status(200).send({ Success: 'Address deleted' });
 });
 
-// POST /api/v1/customers/:customerId/addresses route - creates a new address
-route.post('/customers/:customerId/addresses', validataCustomer, async (req, res) => {
-  const { customer } = req;
-  const { body } = req;
+// POST /api/v1/addresses route - creates a new address
+route.post('/addresses', async (req, res) => {
+  const { user: customer, body } = req;
   if (!body.street) {
     return res.status(400).json({ Error: 'Missing street' });
   } else if (!body.city) {
@@ -58,8 +58,8 @@ route.post('/customers/:customerId/addresses', validataCustomer, async (req, res
   }
 });
 
-// PUT /api/v1/customers/:customerId/addresses/:id route - updates an address
-route.put('/customers/:customerId/addresses/:id', validataCustomer, validateAddress, async (req, res) => {
+// PUT /api/v1/addresses/:id route - updates an address
+route.put('/addresses/:id', validateAddress, async (req, res) => {
   const { address } = req;
   try {
     const { id, createdAt, updatedAt, customerId, ...rest } = req.body;
@@ -69,4 +69,4 @@ route.put('/customers/:customerId/addresses/:id', validataCustomer, validateAddr
     res.status(400).json({ Error: e.errors[0].message });
   }
 });
-export default route;
+module.exports = route;

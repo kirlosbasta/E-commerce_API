@@ -1,20 +1,12 @@
 // This is a very important file that will be used to import all the models and create the relationships between them
-import Address from './address.js';
-import Customer from './customer.js';
-import Order from './order.js';
-import OrderItem from './orderItem.js';
-import Product from './product.js';
-import Category from './category.js';
-import Store from './session.js';
-export { default as Store } from './session.js';
-export { default as Address } from './address.js';
-export { default as Customer } from './customer.js';
-export { default as Order } from './order.js';
-export { default as OrderItem } from './orderItem.js';
-export { default as Product } from './product.js';
-export { default as Category } from './category.js';
-import { storage } from '../config/database.js';
-export { storage } from '../config/database.js';
+const Address = require('./address.js');
+const Customer = require('./customer.js');
+const Order = require('./order.js');
+const OrderItem = require('./orderItem.js');
+const Product = require('./product.js');
+const Category = require('./category.js');
+const Store = require('./session.js');
+const storage = require('../config/database.js');
 
 
 (async () => {
@@ -99,3 +91,13 @@ export { storage } from '../config/database.js';
   // await Customer.sync({ force: true });
 })();
 
+module.exports = {
+  Address,
+  Customer,
+  Order,
+  OrderItem,
+  Product,
+  Category,
+  Store,
+};
+module.exports.storage = storage;

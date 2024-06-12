@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize';
-import dotenv from 'dotenv';
+const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv');
 
 
 dotenv.config();
@@ -15,17 +15,17 @@ class Database {
       logging: false,
     });
     if (process.env.ECOMM_ENV === 'test') {
+      // console.log('Dropping database');
       this.db.drop();
     }
   }
-  connect () {
-    this.db.authenticate()
-    .then(() => { 
-      console.log('Connection has been established successfully.'); 
-    })
-    .catch(err => {
+  async connect () {
+    try {
+      await this.db.authenticate();
+      console.log('Connection has been established successfully.');
+    } catch (err){
       console.error('Unable to connect to the database:', err);
-    });
+    };
   }
 
   async sync () {
@@ -57,4 +57,4 @@ class Database {
   }
 }
 
-export default Database;
+module.exports = Database;

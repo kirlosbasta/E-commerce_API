@@ -1,6 +1,6 @@
-import { Model, DataTypes } from 'sequelize';
-import { storage } from '../config/database.js';
-import { hashPassword } from '../utils/helper.js';
+const { Model, DataTypes } = require('sequelize');
+const storage = require('../config/database.js');
+const { hashPassword } = require('../utils/helper.js');
 
 
 class Customer extends Model {
@@ -66,4 +66,4 @@ Customer.init(
 );
 
 
-export default Customer;
+module.exports = Customer;

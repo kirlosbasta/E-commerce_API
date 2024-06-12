@@ -1,6 +1,5 @@
-import { Model, DataTypes } from 'sequelize';
-import { storage } from '../config/database.js';
-
+const { Model, DataTypes } = require('sequelize');
+const storage = require('../config/database.js');
 
 class Address extends Model {
   /**
@@ -88,4 +87,4 @@ Address.init(
     modelName: 'address',
   });
 
-export default Address;
+module.exports = Address;

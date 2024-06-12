@@ -1,13 +1,13 @@
-import { Router } from 'express';
-import customerRouter from './customerRoute.js';
-import productRouter from './productRoute.js';
-import addressRouter from './addressRoute.js';
-import categoryRouter from './categoryRoute.js';
-import categoryLinkRouter from './categoryProductLinkRoute.js';
-import orderRouter from './orderRoute.js';
-import productSearchRouter from './productSearchRoute.js';
-import statusRouter from './statusRoute.js';
-import authRouter from './authRoute.js';
+const { Router } = require('express');
+const customerRouter = require('./customerRoute.js');
+const productRouter = require('./productRoute.js');
+const addressRouter = require('./addressRoute.js');
+const categoryRouter = require('./categoryRoute.js');
+const categoryLinkRouter = require('./categoryProductLinkRoute.js');
+const orderRouter = require('./orderRoute.js');
+const productSearchRouter = require('./productSearchRoute.js');
+const statusRouter = require('./statusRoute.js');
+const authRouter = require('./authRoute.js');
 
 const router = Router();
 
@@ -21,4 +21,4 @@ router.use(orderRouter);
 router.use(productSearchRouter);
 router.use(statusRouter);
 
-export default router;
+module.exports = router;

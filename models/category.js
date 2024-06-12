@@ -1,8 +1,8 @@
-import { Model, DataTypes } from 'sequelize';
-import { storage } from '../config/database.js';
+const { Model, DataTypes } = require('sequelize');
+const storage = require('../config/database.js');
 
 
-export default class Category extends Model {
+class Category extends Model {
   /**
    * convert Category Model to json format
    *
@@ -44,3 +44,5 @@ Category.init(
     modelName: "category",
   }
 );
+
+module.exports = Category;

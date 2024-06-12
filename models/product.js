@@ -1,7 +1,7 @@
-import { Model, DataTypes } from 'sequelize';
-import { storage } from '../config/database.js';
+const { Model, DataTypes } = require('sequelize');
+const storage = require('../config/database.js');
 
-export default class Product extends Model {
+class Product extends Model {
   /**
    * convert Product Model to json format
    *
@@ -70,3 +70,5 @@ Product.init({
   sequelize: storage.db,
   modelName: 'product',
 });
+
+module.exports = Product;

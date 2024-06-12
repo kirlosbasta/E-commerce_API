@@ -1,8 +1,6 @@
 // this required for SequelizeStore because connect-session-sequelize is not compatible with ES6 modules
-import session from 'express-session';
-import { storage } from '../config/database.js';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+const session = require('express-session');
+const storage = require('../config/database.js');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const Store = new SequelizeStore({
@@ -14,4 +12,4 @@ const Store = new SequelizeStore({
   Store.sync();
 }) ();
 
-export default Store;
+module.exports = Store;

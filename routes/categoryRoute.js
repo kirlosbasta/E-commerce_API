@@ -1,6 +1,6 @@
-import { Router } from "express";
-import { Category } from "../models/index.js";
-import { validateCategory } from "../utils/routeValidation.js";
+const { Router } = require("express");
+const { Category } = require("../models/index.js");
+const { validateCategory } = require("../utils/routeValidation.js");
 
 
 const route = Router();
@@ -56,4 +56,4 @@ route.delete('/categories/:categoryId', validateCategory, async (req, res) => {
   return res.status(200).json({ Success: 'Category deleted' });
 });
 
-export default route;
+module.exports = route;

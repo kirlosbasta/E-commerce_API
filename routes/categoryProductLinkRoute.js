@@ -1,6 +1,5 @@
-import { Router } from "express";
-import { Category, Product } from "../models/index.js";
-import { validateCategory, validateProduct } from "../utils/routeValidation.js";
+const { Router } = require('express');
+const { validateCategory, validateProduct } = require("../utils/routeValidation.js");
 
 const route = Router();
 
@@ -37,4 +36,4 @@ route.delete('/products/:productId/categories/:categoryId', validateProduct, val
   await product.removeCategory(category);
   return res.status(200).json({});
 });
-export default route;
+module.exports = route;

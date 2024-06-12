@@ -1,45 +1,49 @@
-import { Address, Customer, storage } from "../../models/index.js";
+const { Address, Customer, storage } = require( "../../models/index.js");
 
 let customer;
 
 
-describe("Customer", () => {
+describe("Test Customer", () => {
   beforeAll(async () => {
+    await storage.sync();
     customer = await Customer.create(
       {
         firstName: "John",
         lastName: "Doe",
         email: "JohnDoe@gmail.com",
         password: "password",
-        phoneNumber: "+1234567890",
       });
-      await customer.createAddress({
-        street: "123 Main St",
-        city: "Springfield",
-        state: "IL",
-        zipCode: 62701,
-        country: 'USA',
-        houseNumber: '32',
-      });
-      await customer.createAddress({
-        street: "14 waffle St",
-        city: "yorkshire",
-        state: "NW",
-        zipCode: 346243,
-        country: 'RU',
-        houseNumber: '32',
-        floor: 5,
-        description: "This is a description",
-      });
+      
   });
   afterAll(async () => {
-    await Customer.destroy({ where: {email: 'JohnDoe@gmail.com'} });
-    await storage.db.close();
+    await storage.db.drop();
   });
 
   it('should have a customer', async () => {
+    const json = customer.toJSON();
     expect(customer).toBeInstanceOf(Customer);
-    expect(customer.toJSON()).toHaveProperty('id', customer.id);
-    expect(customer.toJSON()).toHaveProperty('createdAt');
+    expect(json).toHaveProperty('id', customer.id);
+    expect(json).toHaveProperty('createdAt');
+    expect(json).toHaveProperty('updatedAt');
+    expect(json).toHaveProperty('firstName', 'John');
+    expect(json).toHaveProperty('lastName', 'Doe');
+    expect(json).toHaveProperty('email', 'JohnDoe@gmail.com');
+    expect(json).not.toHaveProperty('password');
+    expect(customer.password).not.toBe('password');
+    expect(json).toHaveProperty('model', 'Customer');
+  });
+
+  it('should throw an eror if email is not valid', async () => {
+    try {
+      await Customer.create({
+        firstName: "John",
+        lastName: "Doe",
+        email: "JohnDoe",
+        password: "password",
+      });
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBe('Validation error: Email must be in the format example@exam.com');
+    }
   });
 });

@@ -1,6 +1,7 @@
-import { Router } from "express";
-import { Product, Category } from "../models/index.js";
-import { Op, json } from "sequelize";
+const { Router } = require('express');
+const { Product, Category } = require("../models/index.js");
+const { Op, json } = require("sequelize");
+
 
 
 const route = Router();
@@ -43,4 +44,4 @@ route.post('/product_search', async (req, res) => {
   res.json(products.map(product => product.toJSON()));
 });
 
-export default route;
+module.exports = route;

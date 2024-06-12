@@ -1,7 +1,7 @@
-import { Router } from "express";
-import { Address, Order, OrderItem, Product } from "../models/index.js";
-import { validataOrder, validateOrderItem } from "../utils/routeValidation.js";
-import { isAuthenticated } from "../utils/middelware.js";
+const { Router } = require('express');
+const { Address, Order, OrderItem, Product } = require("../models/index.js");
+const { validateOrder, validateOrderItem } = require("../utils/routeValidation.js");
+const isAuthenticated = require("../utils/middelware.js");
 
 
 const route = Router();
@@ -29,14 +29,14 @@ route.get('/orders(/:orderId)?', async (req, res) => {
 });
 
 // GET /api/v1/orders/:orderId/address - returns order address
-route.get('/orders/:orderId/address', validataOrder, async (req, res) => {
+route.get('/orders/:orderId/address', validateOrder, async (req, res) => {
   const { order } = req;
   const address = await order.getAddress();
   return res.json(address.toJSON());
 });
 
 // GET /api/v1/orders/:orderId/orderItems - returns order items
-route.get('/orders/:orderId/orderItems', validataOrder, async (req, res) => {
+route.get('/orders/:orderId/orderItems', validateOrder, async (req, res) => {
   const { order } = req;
   const items = (await order.getOrderItems({ include: Product })).map(item => item.toJSON());
   res.json(items);
@@ -55,7 +55,7 @@ route.post('/orders', async (req, res) => {
 });
 
 // PUT /api/v1/orders/:orderId - updates an order
-route.put('/orders/:orderId', validataOrder, async (req, res) => {
+route.put('/orders/:orderId', validateOrder, async (req, res) => {
   try {
     const { order } = req;
     const { id, createdAt, updatedAt, customerId, ...rest } = req.body;
@@ -68,7 +68,7 @@ route.put('/orders/:orderId', validataOrder, async (req, res) => {
 });
 
 // DELETE /api/v1/orders/:orderId - deletes an order
-route.delete('/orders/:orderId', validataOrder, async (req, res) => {
+route.delete('/orders/:orderId', validateOrder, async (req, res) => {
   const { order } = req;
   await order.update({ status: 'canceled' });
   return res.status(200).json({ Success: 'Order canceled' });
@@ -76,7 +76,7 @@ route.delete('/orders/:orderId', validataOrder, async (req, res) => {
 
 // POST /api/v1/orders/:orderId/orderItems - add an item to the order
 // accepts a list of objects contain productId and quantity
-route.post('/orders/:orderId/orderItems', validataOrder, async (req, res) => {
+route.post('/orders/:orderId/orderItems', validateOrder, async (req, res) => {
   const { order, body: { orderItems } } = req;
   if (!orderItems) {
     return res.status(400).json({ Error: 'Missing orderItems' });
@@ -114,7 +114,7 @@ route.post('/orders/:orderId/orderItems', validataOrder, async (req, res) => {
 });
 // PUT /api/v1/orders/:orderId/orderItems/:orderItemId - update order item
 // accepts quantity
-route.put('/orders/:orderId/orderItems/:orderItemId', validataOrder, validateOrderItem, async (req, res) => {
+route.put('/orders/:orderId/orderItems/:orderItemId', validateOrder, validateOrderItem, async (req, res) => {
   const { order, orderItem, params: { orderItemId }, body: { quantity } } = req;
   if (!quantity) {
     return res.status(400).json({ Error: 'Missing quantity' });
@@ -135,7 +135,7 @@ route.put('/orders/:orderId/orderItems/:orderItemId', validataOrder, validateOrd
 });
 
 // DELETE /api/v1/orders/:orderId/orderItems/:orderItemId - delete order item
-route.delete('/orders/:orderId/orderItems/:orderItemId', validataOrder, validateOrderItem, async (req, res) => {
+route.delete('/orders/:orderId/orderItems/:orderItemId', validateOrder, validateOrderItem, async (req, res) => {
   const { orderItem } = req;
   const product = await Product.findByPk(orderItem.productId);
   await product.increment({ 'stock': orderItem.quantity });
@@ -144,4 +144,4 @@ route.delete('/orders/:orderId/orderItems/:orderItemId', validataOrder, validate
 });
 
 
-export default route;
+module.exports = route;

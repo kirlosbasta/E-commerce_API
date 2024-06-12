@@ -1,7 +1,7 @@
-import { Router } from "express";
-import passport from "passport";
-import { Customer } from "../models/index.js";
-import '../strategies/local_strategy.js';
+const Router = require("express").Router;
+const passport = require("passport");
+
+require('../strategies/local_strategy.js');
 
 
 const route = Router();
@@ -11,4 +11,4 @@ route.post('/auth/login', passport.authenticate('local'), (req, res) => {
   res.status(200).json({message: 'Login successful'});
 });
 
-export default route;
+module.exports = route;
