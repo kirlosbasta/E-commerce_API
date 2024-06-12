@@ -12,10 +12,10 @@ The Marketer API is the ultimate API solution for small businesses looking to ta
 ## Getting Started
 To get started with the Marketer API, you need first to have node and mysql installed on your machine. You can download node >= 18 from [here](https://nodejs.org/en/download/) and mysql from [here](https://dev.mysql.com/downloads/mysql/).
 
-1.Clone the repository: `git clone https://github.com/kirlosbasta/E-commerce_API.git`.
-2.cd to the repo directory: `cd E-commerce_API`.
-3.Install the dependencies: `npm install`.
-4.Start the server: `npm run start`.
+1.Clone the repository: `git clone https://github.com/kirlosbasta/E-commerce_API.git`.<br>
+2.cd to the repo directory: `cd E-commerce_API`.<br>
+3.Install the dependencies: `npm install`.<br>
+4.Start the server: `npm run start`.<br>
 
 ## Environment Variables
 The Marketer API uses environment variables to configure the server. You can set these variables in a `.env` file in the root directory of the project. Here are the available environment variables:
