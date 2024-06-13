@@ -34,9 +34,9 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/auth/login`: 
     - `POST`: Authenticate a user.<br>
-        `fields`: <br>
-            `email` - string<br> 
-            `password` - string.
+        - `fields`: <br>
+            - `email` - string<br> 
+            - `password` - string.
 
 - `/status`: 
     - `GET`: Get the status of the authentication.
@@ -45,100 +45,100 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 - `/customers`: 
     - `GET`: Get a list of all customers.
     - `POST`: Create a new customer.<br>
-        `fields`: <br>
-            `firstName` - string<br>
-            `lastName` - string<br>
-            `email` - string<br> 
-            `password` - string.
+        - `fields`: <br>
+            - `firstName` - string<br>
+            - `lastName` - string<br>
+            - `email` - string<br> 
+            - `password` - string.
 
 
 - `/customers/{id}`:
     - `GET`: Get a specific customer by ID.
     - `PUT`: Update a specific customer by ID.<br>
-        `fields`: <br>
-            `firstName` - string<br>
-            `lastName` - string<br>
-            `password` - string.
+        - `fields`: <br>
+            - `firstName` - string<br>
+            - `lastName` - string<br>
+            - `password` - string.
     - `DELETE`: Delete a specific customer by ID.
 
 
 - `/addresses`:
     - `GET`: Get a list of all addressess of the authenticated user.
     - `POST`: Create a new address.<br>
-        `fields`: <br>
-            `street` - string<br>
-            `city` - string<br>
-            `state` - string<br>
-            `zipCode` - int<br>
-            `country` - string<br>
-            `phoneNumber` - string.<br>
-            `additionalPhoneNumber` - string<br>
-            `houseNumber` - string<br>
-            `floor` - int<br>
-            `description` - string.
+        - `fields`: <br>
+            - `street` - string<br>
+            - `city` - string<br>
+            - `state` - string<br>
+            - `zipCode` - int<br>
+            - `country` - string<br>
+            - `phoneNumber` - string.<br>
+            - `additionalPhoneNumber` - string<br>
+            - `houseNumber` - string<br>
+            - `floor` - int<br>
+            - `description` - string.
 
 - `/addresses/{id}`:
     - `GET`: Get a specific address by ID.
     - `PUT`: Update a specific address by ID.<br>
-        `fields`: <br>
-            `street` - string<br>
-            `city` - string<br>
-            `state` - string<br>
-            `zipCode` - int<br>
-            `country` - string<br>
-            `phoneNumber` - string.<br>
-            `additionalPhoneNumber` - string<br>
-            `houseNumber` - string<br>
-            `floor` - int<br>
-            `description` - string.
+        - `fields`: <br>
+            - `street` - string<br>
+            - `city` - string<br>
+            - `state` - string<br>
+            - `zipCode` - int<br>
+            - `country` - string<br>
+            - `phoneNumber` - string.<br>
+            - `additionalPhoneNumber` - string<br>
+            - `houseNumber` - string<br>
+            - `floor` - int<br>
+            - `description` - string.
     - `DELETE`: Delete a specific address by ID.
 
 - `/products`:
     - `GET`: Get a list of all products.
     - `POST`: Create a new product.<br>
-        `fields`: <br>
-            `name` - string<br>
-            `price` - float<br>
-            `description` - string<br>
-            `stock` - int Default 0<br>
+        - `fields`: <br>
+            - `name` - string<br>
+            - `price` - float<br>
+            - `description` - string<br>
+            - `stock` - int Default 0<br>
 
 - `/products/{id}`:
     - `GET`: Get a specific product by ID.
     - `PUT`: Update a specific product by ID.<br>
-        `fields`: <br>
-            `name` - string<br>
-            `price` - float<br>
-            `description` - string<br>
-            `stock` - int Default 0<br>
+        - `fields`: <br>
+            - `name` - string<br>
+            - `price` - float<br>
+            - `description` - string<br>
+            - `stock` - int Default 0<br>
     - `DELETE`: Delete a specific product by ID.
 
 - `/categories`:
     - `GET`: Get a list of all categories.
     - `POST`: Create a new category.<br>
-        `fields`: <br>
-            `name` - string<br>
+        - `fields`: <br>
+            - `name` - string<br>
 
 - `/categories/{id}`:
     - `GET`: Get a specific category by ID.
     - `PUT`: Update a specific category by ID.<br>
-        `fields`: <br>
-            `name` - string<br>
+        - `fields`: <br>
+            - `name` - string<br>
     - `DELETE`: Delete a specific category by ID.
 
 - `/orders`:
     - `GET`: Get a list of all orders of the customer.
     - `POST`: Create a new order.<br>
-        `fields`: <br>
-            `addressId` - string<br>
-            `orderItems` - array of objects with the following fields:<br>
-                `productId` - int<br>
-                `quantity` - int.
+        - `fields`: <br>
+            - `addressId` - string<br>
+            - `orderItems` - array of objects with the following fields:<br>
+                - `productId` - int<br>
+                - `quantity` - int.
 
 - `/orders/{id}`:
     - `GET`: Get a specific order by ID.
     - `PUT`: Update a specific order by ID.<br>
-        `fields`: <br>
-            `status` - string<br>
+        - `fields`: <br>
+            - `status` - string<br>
     - `DELETE`: Set the status to canceled.
 
 - `/orders/:orderId/address`: 
@@ -147,15 +147,15 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 - `/orders/:orderId/orderItems`:
     - `GET`: Get the order items of the order.
     - `POST`: Add a new order item to the order.<br>
-        `fields`: <br>
-            `orderItems` - array of objects with the following fields:<br>
-                `productId` - int<br>
-                `quantity` - int.
+        - `fields`: <br>
+            - `orderItems` - array of objects with the following fields:<br>
+                - `productId` - int<br>
+                - `quantity` - int.
 
 - `/orders/:orderId/orderItems/{id}`:
     - `PUT`: Update a specific order item by ID.<br>
-        `fields`: <br>
-            `quantity` - int.
+        - `fields`: <br>
+            - `quantity` - int.
     - `DELETE`: Delete a specific order item by ID.
 
 
@@ -171,12 +171,12 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 
 - `/product_search`:
-    `POST`: Search for products by name, price or category.<br>
-        `fields`: <br>
-            `name` - string<br>
-            `min` - float<br>
-            `max` - float<br>
-            `categories` - Array of categories id.
+    - `POST`: Search for products by name, price or category.<br>
+        - `fields`: <br>
+            - `name` - string<br>
+            - `min` - float<br>
+            - `max` - float<br>
+            - `categories` - Array of categories id.
 
 
 
