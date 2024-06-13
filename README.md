@@ -44,7 +44,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/customers`: 
     - `GET`: Get a list of all customers.
-    - `POST`: Create a new customer.
+    - `POST`: Create a new customer.<br>
         `fields`: <br>
             `firstName` - string<br>
             `lastName` - string<br>
@@ -54,7 +54,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/customers/{id}`:
     - `GET`: Get a specific customer by ID.
-    - `PUT`: Update a specific customer by ID.
+    - `PUT`: Update a specific customer by ID.<br>
         `fields`: <br>
             `firstName` - string<br>
             `lastName` - string<br>
@@ -64,7 +64,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/addresses`:
     - `GET`: Get a list of all addressess of the authenticated user.
-    - `POST`: Create a new address.
+    - `POST`: Create a new address.<br>
         `fields`: <br>
             `street` - string<br>
             `city` - string<br>
@@ -79,7 +79,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/addresses/{id}`:
     - `GET`: Get a specific address by ID.
-    - `PUT`: Update a specific address by ID.
+    - `PUT`: Update a specific address by ID.<br>
         `fields`: <br>
             `street` - string<br>
             `city` - string<br>
@@ -95,7 +95,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/products`:
     - `GET`: Get a list of all products.
-    - `POST`: Create a new product.
+    - `POST`: Create a new product.<br>
         `fields`: <br>
             `name` - string<br>
             `price` - float<br>
@@ -104,7 +104,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/products/{id}`:
     - `GET`: Get a specific product by ID.
-    - `PUT`: Update a specific product by ID.
+    - `PUT`: Update a specific product by ID.<br>
         `fields`: <br>
             `name` - string<br>
             `price` - float<br>
@@ -114,20 +114,20 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/categories`:
     - `GET`: Get a list of all categories.
-    - `POST`: Create a new category.
+    - `POST`: Create a new category.<br>
         `fields`: <br>
             `name` - string<br>
 
 - `/categories/{id}`:
     - `GET`: Get a specific category by ID.
-    - `PUT`: Update a specific category by ID.
+    - `PUT`: Update a specific category by ID.<br>
         `fields`: <br>
             `name` - string<br>
     - `DELETE`: Delete a specific category by ID.
 
 - `/orders`:
     - `GET`: Get a list of all orders of the customer.
-    - `POST`: Create a new order.
+    - `POST`: Create a new order.<br>
         `fields`: <br>
             `addressId` - string<br>
             `orderItems` - array of objects with the following fields:<br>
@@ -136,7 +136,7 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/orders/{id}`:
     - `GET`: Get a specific order by ID.
-    - `PUT`: Update a specific order by ID.
+    - `PUT`: Update a specific order by ID.<br>
         `fields`: <br>
             `status` - string<br>
     - `DELETE`: Set the status to canceled.
@@ -146,14 +146,14 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
 
 - `/orders/:orderId/orderItems`:
     - `GET`: Get the order items of the order.
-    - `POST`: Add a new order item to the order.
+    - `POST`: Add a new order item to the order.<br>
         `fields`: <br>
             `orderItems` - array of objects with the following fields:<br>
                 `productId` - int<br>
                 `quantity` - int.
 
 - `/orders/:orderId/orderItems/{id}`:
-    - `PUT`: Update a specific order item by ID.
+    - `PUT`: Update a specific order item by ID.<br>
         `fields`: <br>
             `quantity` - int.
     - `DELETE`: Delete a specific order item by ID.
@@ -166,12 +166,12 @@ The Marketer API provides the following endpoints(All endpoints are prefixed wit
     - `GET`: Get the products of the category.
 
 - `/products/:productId/categories/:categoryId`:
-    - `POST`: Add a category to the product.
-    - `DELETE`: Remove a category from the product.
+    - `POST`: Add a category to the product.<br>
+    - `DELETE`: Remove a category from the product.<br>
 
 
 - `/product_search`:
-    `POST`: Search for products by name, price or category.
+    `POST`: Search for products by name, price or category.<br>
         `fields`: <br>
             `name` - string<br>
             `min` - float<br>
@@ -198,8 +198,7 @@ $ curl -X GET http://localhost:5000/api/v1/status
 ```
 ```
 $ curl -X GET http://localhost:5000/api/v1/customers
-{
-  "customers": [
+[
     {
         "id": "190ec1f1-84f3-4672-8240-70a34bcb52c2",
         "firstName": "John",
@@ -209,8 +208,7 @@ $ curl -X GET http://localhost:5000/api/v1/customers
         "updatedAt": "2024-06-12 20:02:43",
         "model": "Customer"
     }
-  ]
-}
+]
 ```
 ```
 $ curl -X POST http://localhost:5000/api/v1/addresses\
@@ -280,9 +278,7 @@ $ curl -X POST http://localhost:5000/api/v1/categories\
 ```
 ```
 $ curl -X POST http://localhost:5000/api/v1/products/5b9dbb42-d6cf-4268-ab22-e002dc5f3527/categories/780823c7-2769-4e35-b029-83b1f57f151e
-{
-    "message": "Category added to product"
-}
+{}
 ```
 
 ```
@@ -308,6 +304,31 @@ $ curl -X POST http://localhost:5000/api/v1/orders\
     "totalPrice": 2000,
     "totalQuantity": 2
 }
+```
+```
+$ curl -X POST http://localhost:5000/api/v1/orders/cda63200-e64d-4027-93b6-8ecb94101130/orderItems\
+    -H "Content-Type: application/json"\
+    -d '{
+        "orderItems": [
+            {
+                "productId": "5b9dbb42-d6cf-4268-ab22-e002dc5f3527",
+                "quantity": 2
+            }
+        ]
+    }'
+[
+    {
+    "subTotal": 2000,
+    "id": "c39ea2ff-d5e5-4fe8-9b4d-6ea59b350a6a",
+    "quantity": 2,
+    "price": 1000,
+    "createdAt": "2024-06-13T00:38:39.000Z",
+    "updatedAt": "2024-06-13T02:47:38.000Z",
+    "orderId": "d3beeea5-3f4a-498a-8a2d-9d12599748f4",
+    "productId": "5b9dbb42-d6cf-4268-ab22-e002dc5f3527",
+    "model": "OrderItem"
+  }
+]
 ```
 ```
 $ curl -X POST http://localhost:5000/api/v1/product_search\
