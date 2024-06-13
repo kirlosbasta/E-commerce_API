@@ -30,40 +30,328 @@ The Marketer API uses environment variables to configure the server. You can set
 
 ## API Reference
 
-The Marketer API provides the following endpoints:
-- `auth/login`: 
-    - `POST`: Authenticate a user.
-        `fields`: `email` - string, `password` - string.
-- `/api/v1/customers`: 
+The Marketer API provides the following endpoints(All endpoints are prefixed with `/api/v1`):
+
+- `/auth/login`: 
+    - `POST`: Authenticate a user.<br>
+        `fields`: <br>
+            `email` - string<br> 
+            `password` - string.
+
+- `/status`: 
+    - `GET`: Get the status of the authentication.
+
+
+- `/customers`: 
     - `GET`: Get a list of all customers.
     - `POST`: Create a new customer.
+        `fields`: <br>
+            `firstName` - string<br>
+            `lastName` - string<br>
+            `email` - string<br> 
+            `password` - string.
 
-- `/api/v1/customers/{id}`:
+
+- `/customers/{id}`:
     - `GET`: Get a specific customer by ID.
     - `PUT`: Update a specific customer by ID.
+        `fields`: <br>
+            `firstName` - string<br>
+            `lastName` - string<br>
+            `password` - string.
     - `DELETE`: Delete a specific customer by ID.
-- `/api/v1/products`:
+
+
+- `/addresses`:
+    - `GET`: Get a list of all addressess of the authenticated user.
+    - `POST`: Create a new address.
+        `fields`: <br>
+            `street` - string<br>
+            `city` - string<br>
+            `state` - string<br>
+            `zipCode` - int<br>
+            `country` - string<br>
+            `phoneNumber` - string.<br>
+            `additionalPhoneNumber` - string<br>
+            `houseNumber` - string<br>
+            `floor` - int<br>
+            `description` - string.
+
+- `/addresses/{id}`:
+    - `GET`: Get a specific address by ID.
+    - `PUT`: Update a specific address by ID.
+        `fields`: <br>
+            `street` - string<br>
+            `city` - string<br>
+            `state` - string<br>
+            `zipCode` - int<br>
+            `country` - string<br>
+            `phoneNumber` - string.<br>
+            `additionalPhoneNumber` - string<br>
+            `houseNumber` - string<br>
+            `floor` - int<br>
+            `description` - string.
+    - `DELETE`: Delete a specific address by ID.
+
+- `/products`:
     - `GET`: Get a list of all products.
     - `POST`: Create a new product.
-- `/api/v1/products/{id}`:
+        `fields`: <br>
+            `name` - string<br>
+            `price` - float<br>
+            `description` - string<br>
+            `stock` - int Default 0<br>
+
+- `/products/{id}`:
     - `GET`: Get a specific product by ID.
     - `PUT`: Update a specific product by ID.
+        `fields`: <br>
+            `name` - string<br>
+            `price` - float<br>
+            `description` - string<br>
+            `stock` - int Default 0<br>
     - `DELETE`: Delete a specific product by ID.
 
-For detailed information on each endpoint, including request and response formats, please refer to the [API documentation](https://example.com/api-docs).
+- `/categories`:
+    - `GET`: Get a list of all categories.
+    - `POST`: Create a new category.
+        `fields`: <br>
+            `name` - string<br>
+
+- `/categories/{id}`:
+    - `GET`: Get a specific category by ID.
+    - `PUT`: Update a specific category by ID.
+        `fields`: <br>
+            `name` - string<br>
+    - `DELETE`: Delete a specific category by ID.
+
+- `/orders`:
+    - `GET`: Get a list of all orders of the customer.
+    - `POST`: Create a new order.
+        `fields`: <br>
+            `addressId` - string<br>
+            `orderItems` - array of objects with the following fields:<br>
+                `productId` - int<br>
+                `quantity` - int.
+
+- `/orders/{id}`:
+    - `GET`: Get a specific order by ID.
+    - `PUT`: Update a specific order by ID.
+        `fields`: <br>
+            `status` - string<br>
+    - `DELETE`: Set the status to canceled.
+
+- `/orders/:orderId/address`: 
+    - `GET`: Get the address of the order.
+
+- `/orders/:orderId/orderItems`:
+    - `GET`: Get the order items of the order.
+    - `POST`: Add a new order item to the order.
+        `fields`: <br>
+            `orderItems` - array of objects with the following fields:<br>
+                `productId` - int<br>
+                `quantity` - int.
+
+- `/orders/:orderId/orderItems/{id}`:
+    - `PUT`: Update a specific order item by ID.
+        `fields`: <br>
+            `quantity` - int.
+    - `DELETE`: Delete a specific order item by ID.
+
+
+- `/products/:productId/categories`:
+    - `GET`: Get the categories of the product.
+
+- `/categories/:categoryId/products`:
+    - `GET`: Get the products of the category.
+
+- `/products/:productId/categories/:categoryId`:
+    - `POST`: Add a category to the product.
+    - `DELETE`: Remove a category from the product.
+
+
+- `/product_search`:
+    `POST`: Search for products by name, price or category.
+        `fields`: <br>
+            `name` - string<br>
+            `min` - float<br>
+            `max` - float<br>
+            `categories` - Array of categories id.
+
 
 
 ## Examples
 
+```
+$ curl -X POST http://localhost:5000/api/v1/auth/login\
+    -d '"email": "JohnDoe@gmail.com", "password": "password"'\
+    -H "Content-Type: application/json"
+{
+  "message": "Login successful"
+}
+```
+```
+$ curl -X GET http://localhost:5000/api/v1/status
+{
+  "status": "ok"
+}
+```
+```
+$ curl -X GET http://localhost:5000/api/v1/customers
+{
+  "customers": [
+    {
+        "id": "190ec1f1-84f3-4672-8240-70a34bcb52c2",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "JohnDoe@gmail.com",
+        "createdAt": "2024-06-12 20:02:43",
+        "updatedAt": "2024-06-12 20:02:43",
+        "model": "Customer"
+    }
+  ]
+}
+```
+```
+$ curl -X POST http://localhost:5000/api/v1/addresses\
+    -H "Content-Type: application/json"\
+    -d '{
+        "street": "Elm Street",
+        "city": "Springwood",
+        "state": "Ohio",
+        "zipCode": 12345,
+        "country": "USA",
+        "phoneNumber": "+1234567890",
+        "additionalPhoneNumber": "+0987654321",
+        "houseNumber": "123",
+        "floor": 1,
+        "description": "Home"
+    }'
+{
+    "id": "780823c7-2769-4e35-b029-83b1f57f151e",
+    "street": "Elm Street",
+    "city": "Springwood",
+    "state": "Ohio",
+    "zipCode": 12345,
+    "country": "USA",
+    "phoneNumber": "+1234567890",
+    "additionalPhoneNumber": "+0987654321",
+    "houseNumber": "123",
+    "floor": 1,
+    "description": "Home",
+    "createdAt": "2024-06-12 20:02:43",
+    "updatedAt": "2024-06-12 20:02:43",
+    "model": "Address",
+}
+```
+```
+$ curl -X POST http://localhost:5000/api/v1/products\
+    -H "Content-Type: application/json"\
+    -d '{
+        "name": "Iphone 13",
+        "price": 1000,
+        "description": "The latest Iphone",
+        "stock": 10
+    }'
+{
+    "id": "5b9dbb42-d6cf-4268-ab22-e002dc5f3527",
+    "name": "Iphone 13",
+    "price": 1000,
+    "description": "The latest Iphone",
+    "stock": 10,
+    "createdAt": "2024-06-12 20:02:43",
+    "updatedAt": "2024-06-12 20:02:43",
+    "model": "Product",
+}
+```
+```
+$ curl -X POST http://localhost:5000/api/v1/categories\
+    -H "Content-Type: application/json"\
+    -d '{
+        "name": "Electronics"
+    }'
+{
+    "id": "780823c7-2769-4e35-b029-83b1f57f151e",
+    "name": "Electronics",
+    "createdAt": "2024-06-12 20:02:43",
+    "updatedAt": "2024-06-12 20:02:43",
+    "model": "Category",
+}
+```
+```
+$ curl -X POST http://localhost:5000/api/v1/products/5b9dbb42-d6cf-4268-ab22-e002dc5f3527/categories/780823c7-2769-4e35-b029-83b1f57f151e
+{
+    "message": "Category added to product"
+}
+```
+
+```
+$ curl -X POST http://localhost:5000/api/v1/orders\
+    -H "Content-Type: application/json"\
+    -d '{
+        "addressId": "780823c7-2769-4e35-b029-83b1f57f151e",
+        "orderItems": [
+            {
+                "productId": "5b9dbb42-d6cf-4268-ab22-e002dc5f3527",
+                "quantity": 2
+            }
+        ]
+    }'
+{
+    "id": "cda63200-e64d-4027-93b6-8ecb94101130",
+    "status": "pending",
+    "customerId": "190ec1f1-84f3-4672-8240-70a34bcb52c2",
+    "addressId": "780823c7-2769-4e35-b029-83b1f57f151e",
+    "updatedAt": "2024-06-13T02:22:59.250Z",
+    "createdAt": "2024-06-13T02:22:59.250Z",
+    "model": "Order",
+    "totalPrice": 2000,
+    "totalQuantity": 2
+}
+```
+```
+$ curl -X POST http://localhost:5000/api/v1/product_search\
+    -H "Content-Type: application/json"\
+    -d '{
+        "name": "Iphone",
+        "min": 1000,
+        "max": 2000,
+        "categories": ["780823c7-2769-4e35-b029-83b1f57f151e"]
+    }'
+{
+    "products": [
+        {
+            "id": "5b9dbb42-d6cf-4268-ab22-e002dc5f3527",
+            "name": "Iphone 13",
+            "price": 1000,
+            "description": "The latest Iphone",
+            "stock": 10,
+            "createdAt": "2024-06-12 20:02:43",
+            "updatedAt": "2024-06-12 20:02:43",
+            "model": "Product",
+        }
+    ]
+}
+```
+```
+$ curl -X GET http://localhost:5000/api/v1/products/5b9dbb42-d6cf-4268-ab22-e002dc5f3527/categories
+{
+    "categories": [
+        {
+            "id": "780823c7-2769-4e35-b029-83b1f57f151e",
+            "name": "Electronics",
+            "createdAt": "2024-06-12 20:02:43",
+            "updatedAt": "2024-06-12 20:02:43",
+            "model": "Category",
+        }
+    ]
+}
+```
 
 ## Contributing
 We welcome contributions from the community! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request on our [GitHub repository](https://github.com/kirlosbasta/E-commerce_API).
 
-## License
-The Marketer API is released under the [MIT License](https://opensource.org/licenses/MIT).
-
 ## Contact
-If you have any questions or need further assistance, please check my at
-[Git].
-
-
+If you have any questions or need further assistance, you can reach me at:
+[LinkedIn](https://www.linkedin.com/in/kirlos-basta/)<br>
+[Twitter](https://twitter.com/KirlosBasta12)<br>
