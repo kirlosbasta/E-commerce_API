@@ -22,8 +22,8 @@ route.get('/addresses(/:id)?', async (req, res) => {
   }
 });
 
-// DELETE /api/v1/addresses/:id route - deletes an address
-route.delete('/addresses/:id', validateAddress, async (req, res) => {
+// DELETE /api/v1/addresses/:addressId route - deletes an address
+route.delete('/addresses/:addressId', validateAddress, async (req, res) => {
   const { address } = req;
   await address.destroy();
   res.status(200).send({ Success: 'Address deleted' });
@@ -42,6 +42,8 @@ route.post('/addresses', async (req, res) => {
     return res.status(400).json({ Error: 'Missing zipCode' });
   } else if (!body.country) {
     return res.status(400).json({ Error: 'Missing country' });
+  } else if (!body.phoneNumber) {
+    return res.status(400).json({ Error: 'Missing phoneNumber' });
   } else {
     try {
       const { id, createdAt, updatedAt, ...rest } = body;
@@ -55,8 +57,8 @@ route.post('/addresses', async (req, res) => {
   }
 });
 
-// PUT /api/v1/addresses/:id route - updates an address
-route.put('/addresses/:id', validateAddress, async (req, res) => {
+// PUT /api/v1/addresses/:addressId route - updates an address
+route.put('/addresses/:addressId', validateAddress, async (req, res) => {
   const { address } = req;
   try {
     const { id, createdAt, updatedAt, customerId, ...rest } = req.body;

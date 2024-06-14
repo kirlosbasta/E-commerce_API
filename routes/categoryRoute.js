@@ -39,8 +39,12 @@ route.post('/categories', async (req, res) => {
 route.put('/categories/:categoryId', validateCategory, async (req, res) => {
   const { category } = req;
   try {
-    const { id, createdAt, updatedAt, ...rest } = req.body;
-    await category.update(rest);
+    const { name } = req.body;
+    console.log(name)
+    if(!name) {
+      return res.status(400).json({ Error: 'Missing name' });
+    }
+    await category.update({name: name});
     return res.json(category.toJSON());
   } catch (e) {
     return res.status(400).json({ Error: e.errors[0].message });

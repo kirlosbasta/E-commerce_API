@@ -11,14 +11,16 @@ const authRouter = require('./authRoute.js');
 
 const router = Router();
 
+// The order here is very important. The first route that matches the request will be used.
 router.use(authRouter);
 router.use(customerRouter);
 router.use(productRouter);
-router.use(addressRouter);
 router.use(categoryRouter);
 router.use(categoryLinkRouter);
-router.use(orderRouter);
 router.use(productSearchRouter);
+// Any route after this will use the auth middleware (used in addressRoute)
+router.use(addressRouter);
+router.use(orderRouter);
 router.use(statusRouter);
 
 module.exports = router;
