@@ -12,8 +12,8 @@ The Marketer API is the ultimate API solution for small businesses looking to ta
 ## Getting Started
 To get started with the Marketer API, you need first to have node and mysql installed on your machine. You can download node >= 18 from [here](https://nodejs.org/en/download/) and mysql from [here](https://dev.mysql.com/downloads/mysql/).
 
-1.Clone the repository: `git clone https://github.com/kirlosbasta/E-commerce_API.git`.<br>
-2.cd to the repo directory: `cd E-commerce_API`.<br>
+1.Clone the repository: `git clone https://github.com/kirlosbasta/Marketer.git`.<br>
+2.cd to the repo directory: `cd Marketer`.<br>
 3.Install the dependencies: `npm install`.<br>
 4.Start the server: `npm run start`.<br>
 
@@ -370,7 +370,7 @@ $ curl -X GET http://localhost:5000/api/v1/products/5b9dbb42-d6cf-4268-ab22-e002
 ```
 
 ## Contributing
-We welcome contributions from the community! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request on our [GitHub repository](https://github.com/kirlosbasta/E-commerce_API).
+We welcome contributions from the community! If you have any suggestions, bug reports, or feature requests, please open an issue or submit a pull request on our [GitHub repository](https://github.com/kirlosbasta/Marketer).
 
 ## Contact
 If you have any questions or need further assistance, you can reach me at:
