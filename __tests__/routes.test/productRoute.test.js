@@ -53,7 +53,6 @@ describe('/api/v1/products', () => {
 
     it('should create a new product', async () => {
       const res = await request(app).post('/api/v1/products').send({ name: 'product3', price: 30 });
-      console.log(res.body);
       expect(res.statusCode).toBe(201);
       expect(res.body).toHaveProperty('name', 'product3');
       expect(res.body).toHaveProperty('price', 30);

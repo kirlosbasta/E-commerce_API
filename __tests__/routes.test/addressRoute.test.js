@@ -64,7 +64,6 @@ describe('/api/v1/addresses', () => {
       const res = await request(app)
         .get(`/api/v1/addresses/${address1.id}`)
         .set('Cookie', cookie);
-      console.log(res.body);
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveProperty('id', address1.id);
     });

@@ -51,7 +51,11 @@ route.post('/orders', async (req, res) => {
   try {
     const { user: customer } = req;
     const { addressId, orderItems } = req.body;
-    const order = await Order.create({ customerId: customer.id, addressId });
+
+    if(!addressId) {
+      return res.status(400).json({ Error: 'Missing addressId' });
+    }
+    let order = await Order.create({ customerId: customer.id, addressId });
     // check if address exists
     if (!orderItems) {
       return res.status(400).json({ Error: 'Missing orderItems' });
@@ -76,27 +80,17 @@ route.post('/orders', async (req, res) => {
         return res.status(400).json({ Error: `Quantity exceeds stock capacity: ${product.stock}.` });
       }
       try {
-        // check if item already exists in the order
-        const existItems = await order.getOrderItems({ where: { productId: item.productId } });
-        if (existItems.length === 0) {
-          // create new order item if it doesn't exist
+          // create new order item 
           await OrderItem.create({ orderId: order.id, productId: product.id, price: product.price, quantity: item.quantity });
           // decrement stock
           await product.decrement({ stock: item.quantity });
-        } else {
-          // increment quantity if it exists
-          const existItem = existItems[0];
-          await existItem.increment({ quantity: item.quantity });
-          // decrement stock
-          await product.decrement({ stock: item.quantity });
-        }
-      } catch (e) {
+        } catch (e) {
         return res.status(400).json({ Error: e.errors[0].message });
       }
     }
+    order = await order.reload({ include: OrderItem });
     return res.status(201).json(await order.toJSON());
   } catch (e) {
-    console.log(e);
     return res.status(400).json({ Error: e.errors[0].message });
   }
 });
@@ -158,7 +152,8 @@ route.post('/orders/:orderId/orderItems', validateOrder, async (req, res) => {
       return res.status(400).json({ Error: e.errors[0].message });
     }
   }
-  return res.status(201).json((await order.getOrderItems()).map(item => item.toJSON()));
+  const newOrder = await order.reload({include: OrderItem});
+  return res.status(201).json(await newOrder.toJSON());
 });
 
 
@@ -166,13 +161,19 @@ route.post('/orders/:orderId/orderItems', validateOrder, async (req, res) => {
 // accepts quantity
 route.put('/orders/:orderId/orderItems/:orderItemId', validateOrder, validateOrderItem, async (req, res) => {
   const { orderItem, body: { quantity } } = req;
-  if (!quantity) {
+  if (!quantity && quantity !== 0) {
     return res.status(400).json({ Error: 'Missing quantity' });
   }
   const product = await Product.findByPk(orderItem.productId);
-  if (quantity > product.stock) {
+  if(!isNaN(quantity) === false) {
+    return res.status(400).json({ Error: 'Quantity must be a number' });
+  } else if (quantity < 1) {
+    return res.status(400).json({ Error: 'Quantity must be greater than 0' });
+  } else if (quantity > product.stock) {
     return res.status(400).json({ Error: `Quantity exceeds stock capacity: ${product.stock}.` });
-  }
+  } else if (quantity === orderItem.quantity) {
+    return res.json(await orderItem.toJSON());
+  } 
   try {
     const oldQuantity = orderItem.quantity;
     await orderItem.update({ quantity });

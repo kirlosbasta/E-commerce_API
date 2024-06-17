@@ -60,7 +60,6 @@ describe('/api/v1/auth', () => {
       email: customer.email,
       password: 'password'
     });
-    console.log(res);
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual({ message: 'Login successful' });
   });

@@ -40,7 +40,6 @@ route.put('/categories/:categoryId', validateCategory, async (req, res) => {
   const { category } = req;
   try {
     const { name } = req.body;
-    console.log(name)
     if(!name) {
       return res.status(400).json({ Error: 'Missing name' });
     }
